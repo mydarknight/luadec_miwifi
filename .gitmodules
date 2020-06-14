@@ -9,8 +9,8 @@
 	url = https://github.com/viruscamp/memwatch
 [submodule "lua-5.1"]
 	path = lua-5.1
-	url = https://github.com/viruscamp/lua5
-	branch = 5.1
+	url = https://github.com/NyaMisty/lua51_miwifi
+	branch = master
 [submodule "lua-5.2"]
 	path = lua-5.2
 	url = https://github.com/viruscamp/lua5
