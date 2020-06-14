@@ -1668,6 +1668,10 @@ void listUpvalues(const Proto* f, StringBuffer* str) {
 }
 
 int isTestOpCode(OpCode op) {
+#ifdef OPCODE_OBF
+    if (op == OP_EQ1 || op == OP_LE1 || op == OP_LT1)
+        return 1;
+#endif
 	return (op == OP_EQ || op == OP_LE || op == OP_LT || op == OP_TEST || op == OP_TESTSET);
 }
 
@@ -2445,6 +2449,24 @@ char* ProcessCode(Proto* f, int indent, int func_checking, char* funcnumstr) {
 			free(cstr);
 			break;
 		}
+#ifdef OPCODE_OBF
+		case OP_MAGIC:
+			switch (c){
+			case 0:
+				o = OP_CLOSE;
+				goto label_CLOSE;
+			case 1:
+				o = OP_UNM;
+				break;
+			case 2:
+				o = OP_LEN;
+				break;
+			case 3:
+				o = OP_NOT;
+				break;
+			}
+			// fall to the below
+#endif
 		case OP_UNM:
 		case OP_NOT:
 		case OP_LEN:
@@ -2683,6 +2705,17 @@ char* ProcessCode(Proto* f, int indent, int func_checking, char* funcnumstr) {
 			}
 			break;
 		}
+#ifdef OPCODE_OBF
+		case OP_EQ1:
+		case OP_LT1:
+		case OP_LE1:
+			if (o == OP_EQ1)
+				o = OP_EQ;
+			else if (o == OP_LT1)
+				o = OP_LT;
+			else if (o == OP_LE)
+				o = OP_LE;
+#endif
 		case OP_EQ:
 		case OP_LT:
 		case OP_LE:
@@ -3032,6 +3065,7 @@ LOGIC_NEXT_JMP:
 #if LUA_VERSION_NUM == 501
 		case OP_CLOSE:
 		{
+label_CLOSE:
 			// close all upvalues >= R(A)
 			/*
 			* Handled in do_opens/do_closes variables.

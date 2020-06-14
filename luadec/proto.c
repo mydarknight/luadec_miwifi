@@ -271,6 +271,15 @@ char* DecompileConstant(const Proto* f, int i) {
 #endif
 		return DecompileString(o);
 #endif
+#ifdef LUA_TINT
+	case LUA_TINT:
+	{
+		char* ret = (char*)calloc(128, sizeof(char));
+		sprintf(ret, LUA_NUMBER_FMT, nvalue(o));
+		return ret;
+	}
+#endif
+
 #if LUA_VERSION_NUM == 503
 	case LUA_TNUMFLT:
 	{

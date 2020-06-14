@@ -215,6 +215,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\lua-5.1\src\lnum.c"
+				>
+			</File>
+			<File
 				RelativePath="..\lua-5.1\src\loadlib.c"
 				>
 			</File>

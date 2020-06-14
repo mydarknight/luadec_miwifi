@@ -251,6 +251,24 @@ void luadec_disassemble(Proto* fwork, int dflag, const char* name) {
 			tmpconstant2 = RK(c);
 			StringBuffer_printf(lend,"R%d := %s %s %s",a,tmpconstant1,operators[o],tmpconstant2);
 			break;
+#ifdef OPCODE_OBF
+		case OP_MAGIC:
+			switch (c){
+			case 0:
+				o = OP_CLOSE;
+				goto label_CLOSE;
+			case 1:
+				o = OP_LEN;
+				break;
+			case 2:
+				o = OP_UNM;
+				break;
+			case 3:
+				o = OP_NOT;
+				break;
+			}
+			// fall to the below
+#endif
 		case OP_UNM:
 			/*	A B	R(A) := -R(B)					*/
 		case OP_NOT:
@@ -284,6 +302,17 @@ void luadec_disassemble(Proto* fwork, int dflag, const char* name) {
 			}
 #endif
 			break;
+#ifdef OPCODE_OBF
+		case OP_EQ1:
+		case OP_LT1:
+		case OP_LE1:
+			if (o == OP_EQ1)
+				o = OP_EQ;
+			else if (o == OP_LT1)
+				o = OP_LT;
+			else if (o == OP_LE)
+				o = OP_LE;
+#endif
 		case OP_EQ:
 			/*	A B C	if ((RK(B) == RK(C)) ~= A) then pc++		*/
 		case OP_LT:
@@ -430,6 +459,7 @@ void luadec_disassemble(Proto* fwork, int dflag, const char* name) {
 		}
 #if LUA_VERSION_NUM == 501
 		case OP_CLOSE:
+label_CLOSE:
 			/*	A 	close all variables in the stack up to (>=) R(A)*/
 			sprintf(line,"R%d",a);
 			StringBuffer_printf(lend,"close all upvalues in R%d to top",a);
