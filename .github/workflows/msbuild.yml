@@ -31,7 +31,7 @@ jobs:
     - name: Upgrading Visual Studio Solution
       working-directory: ${{env.SOLUTION_FILE_PATH}}
       run: |
-        cmd.exe /c Waiting for Visual Studio upgrading solution and project files ...
+        cmd.exe /c echo Waiting for Visual Studio upgrading solution and project files ...
         cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /updateconfiguration
         cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade lua51.sln
         cmd.exe /c type lua51.sln
