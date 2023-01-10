@@ -31,17 +31,9 @@ jobs:
     - name: Upgrading Visual Studio Solution
       working-directory: ${{env.SOLUTION_FILE_PATH}}
       run: |
-        curl.exe -L -O https://raw.githubusercontent.com/mbuilov/sed-windows/a8de79483710eb746ab4362aa4202115169a2848/sed-4.9-x64.exe
-        .\sed-4.9-x64.exe -i 's/\.vcproj/.vcxproj/gi' lua51.sln
-        cmd.exe /c del sed-4.9-x64.exe
+        cmd.exe /c Waiting for Visual Studio upgrading solution and project files ...
         cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /updateconfiguration
-        cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade lua.vcproj
-        cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade luac.vcproj
-        cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade luadec.vcproj
-        cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade luadll.vcproj
-        cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade lualib.vcproj
-        cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade luaopswap.vcproj
-        cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade luareplace.vcproj
+        cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade lua51.sln
         cmd.exe /c type lua51.sln
         cmd.exe /c dir
 
