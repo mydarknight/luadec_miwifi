@@ -20,7 +20,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2019
 
     steps:
     - uses: actions/checkout@v3
@@ -34,13 +34,13 @@ jobs:
         curl.exe -L -O https://raw.githubusercontent.com/mbuilov/sed-windows/a8de79483710eb746ab4362aa4202115169a2848/sed-4.9-x64.exe
         .\sed-4.9-x64.exe -i 's/\.vcproj/.vcxproj/gi' lua51.sln
         cmd.exe /c del sed-4.9-x64.exe
-        devenv /Upgrade lua.vcproj
-        devenv /Upgrade luac.vcproj
-        devenv /Upgrade luadec.vcproj
-        devenv /Upgrade luadll.vcproj
-        devenv /Upgrade lualib.vcproj
-        devenv /Upgrade luaopswap.vcproj
-        devenv /Upgrade luareplace.vcproj
+        cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade lua.vcproj
+        cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade luac.vcproj
+        cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade luadec.vcproj
+        cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade luadll.vcproj
+        cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade lualib.vcproj
+        cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade luaopswap.vcproj
+        cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade luareplace.vcproj
 
     - name: Restore NuGet packages
       working-directory: ${{env.GITHUB_WORKSPACE}}
