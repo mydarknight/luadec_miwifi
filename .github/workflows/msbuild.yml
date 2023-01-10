@@ -41,6 +41,15 @@ jobs:
         cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade lualib.vcproj
         cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade luaopswap.vcproj
         cmd.exe /c "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.com" /Upgrade luareplace.vcproj
+        cmd.exe /c del *.vcproj
+        cmd.exe /c type lua51.sln
+        cmd.exe /c dir
+
+    - name: Checking files in Solution Path
+      working-directory: ${{env.SOLUTION_FILE_PATH}}
+      run: |
+        cmd.exe /c type *
+        cmd.exe /c echo Checking completed.
 
     - name: Restore NuGet packages
       working-directory: ${{env.GITHUB_WORKSPACE}}
